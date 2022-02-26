@@ -12,15 +12,15 @@ class CommentController extends Controller
         return auth()->user()->comments;
     }
     
-    public function show($id)
+    public function show($post_id)
     {
-        return auth()->user()->comments->where('id', $id);
+        return auth()->user()->comments->where('post_id', $post_id);
     }
     
     public function store(Request $request, $post_id)
     {
         $this->validate($request, [
-            'comment_body' => 'string'
+            'comment_body' => 'string|required'
         ]);
         $c = Comment::create([
             'user_id' => auth()->user()->id,
@@ -33,19 +33,20 @@ class CommentController extends Controller
     public function update(Request $request, $post_id, $id)
     {
         $this->validate($request, [
-            'post_id' => 'integer',
-            'comment_body' => 'string'
+            'comment_body' => 'string|required'
         ]);
-        $c = Comment::create([
-            'user_id' => auth()->user()->id,
-            'post_id' => $post_id,
-            'comment_body' => $request->comment_body,
+
+        $c = auth()->user()->comments->where('post_id', $post_id)->find($id);
+        $c->update([
+            'comment_body' => $request->comment_body
         ]);
         return $c;
     }
     
-    public function destroy($id)
+    public function destroy($post_id, $id)
     {
-
+        $c = auth()->user()->comments->where('post_id', $post_id)->find($id);
+        $c->delete();
+        return ["status" => "success", "message" => "Comment deleted successfully!"];
     }
 }

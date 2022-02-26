@@ -74,8 +74,8 @@ $router->group(
       'middleware' => 'auth',
     ], function( $router ) {
           $router->get( '/comments/all', 'CommentController@index' );
-          $router->get( '/comments/show/{id}', 'CommentController@show' );
+          $router->get( '/{post_id}/comments/show', 'CommentController@show' );
           $router->post( '/{post_id}/comments/create', 'CommentController@store' );
-          $router->put( '/{post_id}/comments/edit/{id}', 'CommentController@update' ); //todo
-          $router->delete( '/comments/{id}', 'CommentController@destroy' ); //todo
+          $router->put( '/{post_id}/comments/edit/{id}', 'CommentController@update' );
+          $router->delete( '/{post_id}/comments/{id}', 'CommentController@destroy' ); //todo
   });
