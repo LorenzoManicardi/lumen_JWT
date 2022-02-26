@@ -49,9 +49,21 @@ $router->group(
       'prefix' => '/api/v1/profile',
       'middleware' => 'auth',
     ], function( $router ) {
+          $router->get( '/', 'ProfileController@show' ); 
+          $router->get( '/all', 'ProfileController@index' ); 
           $router->post( '/create', 'ProfileController@store' ); 
           $router->put( '/edit', 'ProfileController@edit' ); 
-          $router->get( '/all', 'ProfileController@index' ); 
-          $router->get( '/', 'ProfileController@show' ); 
           $router->delete( '/', 'ProfileController@destroy' ); 
+  });
+
+  $router->group(
+    [
+      'prefix' => '/api/v1/posts',
+      'middleware' => 'auth',
+    ], function( $router ) {
+          $router->get( '/all', 'PostsController@index' ); 
+          $router->get( '/show/{id}', 'PostsController@show' ); 
+          $router->post( '/create', 'PostsController@store' ); //todo
+          $router->put( '/edit', 'PostsController@edit' ); //todo
+          $router->delete( '/', 'PostsController@destroy' ); //todo
   });
