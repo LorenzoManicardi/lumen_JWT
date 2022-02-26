@@ -63,7 +63,7 @@ $router->group(
     ], function( $router ) {
           $router->get( '/all', 'PostsController@index' ); 
           $router->get( '/show/{id}', 'PostsController@show' ); 
-          $router->post( '/create', 'PostsController@store' ); //todo
-          $router->put( '/edit', 'PostsController@edit' ); //todo
-          $router->delete( '/', 'PostsController@destroy' ); //todo
+          $router->post( '/create', 'PostsController@store' );
+          $router->put( '/edit/{id}', 'PostsController@update' );
+          $router->delete( '/{id}', 'PostsController@destroy' );
   });
