@@ -70,12 +70,12 @@ $router->group(
   
   $router->group(
     [
-      'prefix' => '/api/v1/posts/comments',
+      'prefix' => '/api/v1/posts',
       'middleware' => 'auth',
     ], function( $router ) {
-          $router->get( '/all', 'CommentController@index' );
-          $router->get( '/show/{id}', 'CommentController@show' );
-          $router->post( '/create', 'CommentController@store' ); //todo
-          $router->put( '/edit/{id}', 'CommentController@update' ); //todo
-          $router->delete( '/{id}', 'CommentController@destroy' ); //todo
+          $router->get( '/comments/all', 'CommentController@index' );
+          $router->get( '/comments/show/{id}', 'CommentController@show' );
+          $router->post( '/{post_id}/comments/create', 'CommentController@store' );
+          $router->put( '/{post_id}/comments/edit/{id}', 'CommentController@update' ); //todo
+          $router->delete( '/comments/{id}', 'CommentController@destroy' ); //todo
   });
