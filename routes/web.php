@@ -67,3 +67,15 @@ $router->group(
           $router->put( '/edit/{id}', 'PostsController@update' );
           $router->delete( '/{id}', 'PostsController@destroy' );
   });
+  
+  $router->group(
+    [
+      'prefix' => '/api/v1/posts/comments',
+      'middleware' => 'auth',
+    ], function( $router ) {
+          $router->get( '/all', 'CommentController@index' ); //todo
+          $router->get( '/show/{id}', 'CommentController@show' ); //todo
+          $router->post( '/create', 'CommentController@store' ); //todo
+          $router->put( '/edit/{id}', 'CommentController@update' ); //todo
+          $router->delete( '/{id}', 'CommentController@destroy' ); //todo
+  });
