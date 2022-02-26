@@ -65,4 +65,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->hasMany(Comment::class);
     }
+    
+    public function postLikes()
+    {
+        return $this->hasMany(PostLikes::class);
+    }
 }
