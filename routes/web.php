@@ -73,8 +73,8 @@ $router->group(
       'prefix' => '/api/v1/posts/comments',
       'middleware' => 'auth',
     ], function( $router ) {
-          $router->get( '/all', 'CommentController@index' ); //todo
-          $router->get( '/show/{id}', 'CommentController@show' ); //todo
+          $router->get( '/all', 'CommentController@index' );
+          $router->get( '/show/{id}', 'CommentController@show' );
           $router->post( '/create', 'CommentController@store' ); //todo
           $router->put( '/edit/{id}', 'CommentController@update' ); //todo
           $router->delete( '/{id}', 'CommentController@destroy' ); //todo
