@@ -77,5 +77,16 @@ $router->group(
           $router->get( '/{post_id}/comments/show', 'CommentController@show' );
           $router->post( '/{post_id}/comments/create', 'CommentController@store' );
           $router->put( '/{post_id}/comments/edit/{id}', 'CommentController@update' );
-          $router->delete( '/{post_id}/comments/{id}', 'CommentController@destroy' ); //todo
+          $router->delete( '/{post_id}/comments/{id}', 'CommentController@destroy' );
+  });
+  
+  $router->group(
+    [
+      'prefix' => '/api/v1/posts',
+      'middleware' => 'auth',
+    ], function( $router ) {
+          $router->get( '/likes/total', 'PostLikesController@index' );
+          $router->get( '/{post_id}/likes', 'PostLikesController@show' );
+          $router->post( '/{post_id}/likes', 'PostLikesController@store' );
+          $router->delete( '/{post_id}/likes', 'PostLikesController@destroy' ); 
   });
