@@ -38,10 +38,20 @@ $router->group(
     'prefix' => '/api/v1',
     'middleware' => 'auth',
   ], function( $router ) {
-    $router->post( '/logout', 'AuthController@logout' );
-    $router->get( '/refresh', 'AuthController@refresh' ); 
-    $router->post( '/refresh', 'AuthController@refresh' );
-    $router->get( '/foo', function () {
-        return "Bar";
-    });
+        $router->post( '/logout', 'AuthController@logout' );
+        $router->get( '/refresh', 'AuthController@refresh' ); 
+        $router->post( '/refresh', 'AuthController@refresh' );
+        $router->get( '/foo', function () {return "Bar";});
 });
+
+$router->group(
+    [
+      'prefix' => '/api/v1/profile',
+      'middleware' => 'auth',
+    ], function( $router ) {
+          $router->post( '/create', 'ProfileController@store' ); 
+          $router->put( '/edit', 'ProfileController@edit' ); 
+          $router->get( '/all', 'ProfileController@index' ); 
+          $router->get( '/', 'ProfileController@show' ); 
+          $router->delete( '/', 'ProfileController@destroy' ); 
+  });
