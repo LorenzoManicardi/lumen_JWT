@@ -24,9 +24,14 @@ $router->get('/', function () use ($router) {
  */
 $router->group(['prefix' => '/api/v1'], function( $router ) {
         $router->post( '/login', 'AuthController@login');
-        $router->post( '/register', 'AuthController@register' ); 
+        $router->post( '/register', 'AuthController@register' );
     }
 );
+
+$router->group(['prefix' => '/api/v1/posts'], function( $router ) {
+    $router->get( '/', 'PostController@index' );
+    $router->get( '/show/{id}', 'PostController@show' );
+});
 
 /*
  *
@@ -39,35 +44,22 @@ $router->group(
     'middleware' => 'auth',
   ], function( $router ) {
         $router->post( '/logout', 'AuthController@logout' );
-        $router->get( '/refresh', 'AuthController@refresh' ); 
+        $router->get( '/refresh', 'AuthController@refresh' );
         $router->post( '/refresh', 'AuthController@refresh' );
         $router->get( '/foo', function () {return "Bar";});
 });
 
+
 $router->group(
     [
-      'prefix' => '/api/v1/profile',
-      'middleware' => 'auth',
+        'prefix' => '/api/v1/posts',
+        'middleware' => 'auth',
     ], function( $router ) {
-          $router->get( '/', 'ProfileController@show' ); 
-          $router->get( '/all', 'ProfileController@index' ); 
-          $router->post( '/create', 'ProfileController@store' ); 
-          $router->put( '/edit', 'ProfileController@edit' ); 
-          $router->delete( '/', 'ProfileController@destroy' ); 
-  });
+    $router->post( '/create', 'PostsController@store' );
+    $router->put( '/edit/{id}', 'PostsController@update' );
+    $router->delete( '/{id}', 'PostsController@destroy' );
+});
 
-  $router->group(
-    [
-      'prefix' => '/api/v1/posts',
-      'middleware' => 'auth',
-    ], function( $router ) {
-          $router->get( '/all', 'PostsController@index' ); 
-          $router->get( '/show/{id}', 'PostsController@show' ); 
-          $router->post( '/create', 'PostsController@store' );
-          $router->put( '/edit/{id}', 'PostsController@update' );
-          $router->delete( '/{id}', 'PostsController@destroy' );
-  });
-  
   $router->group(
     [
       'prefix' => '/api/v1/posts',
@@ -79,7 +71,7 @@ $router->group(
           $router->put( '/{post_id}/comments/edit/{id}', 'CommentController@update' );
           $router->delete( '/{post_id}/comments/{id}', 'CommentController@destroy' );
   });
-  
+
   $router->group(
     [
       'prefix' => '/api/v1/posts',
@@ -88,5 +80,5 @@ $router->group(
           $router->get( '/likes/total', 'PostLikesController@index' );
           $router->get( '/{post_id}/likes', 'PostLikesController@show' );
           $router->post( '/{post_id}/likes', 'PostLikesController@store' );
-          $router->delete( '/{post_id}/likes', 'PostLikesController@destroy' ); 
+          $router->delete( '/{post_id}/likes', 'PostLikesController@destroy' );
   });
