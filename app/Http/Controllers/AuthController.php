@@ -35,7 +35,7 @@ class AuthController extends Controller
       $user->save();
       return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
     } catch (\Exception $e) {
-      return response()->json(['message' => 'User Registration Failed!'], 409);
+      return response()->json(['message' => 'User Registration Failed!' , 'error' => $e], 409);
   }
 }
   /**
