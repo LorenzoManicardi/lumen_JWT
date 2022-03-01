@@ -41,17 +41,30 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
-        $post = Post::all()->where('id', $id)->first();
-        $post->user = $post->user;
-        $post->comments = $post->comments;
-        return $post;
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+        $p = auth()->user()->posts()->where('id', $id)->first();
+        dd("asd");
+        //$p->save();
+        //return $n;
     }
 
     public function destroy($id)
     {
-        $post = Post::all()->where('id', $id)->first();
-        $post->user = $post->user;
-        $post->comments = $post->comments;
-        return $post;
+
+        $p = auth()->user()->posts->where('id', $id)->find($id);
+            if ($p->comments) {
+                foreach ($p->comments as $comment ) {
+                    $comment->delete();
+                }
+            }
+            try {
+                $p->delete();
+                return ["status" => "success", "message" => "deleted successfully!"];
+            } catch (\Error $e) {
+                return ["status" => "error", "message" => $e];
+            };
     }
 }
