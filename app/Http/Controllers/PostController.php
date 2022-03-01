@@ -45,10 +45,11 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required',
         ]);
-        $p = auth()->user()->posts()->where('id', $id)->first();
-        dd("asd");
-        //$p->save();
-        //return $n;
+        $p = auth()->user()->posts()->where('id', $id)->find($id);
+        $p->title = $request->title;
+        $p->content = $request->content;
+        $p->save();
+        return $p;
     }
 
     public function destroy($id)
