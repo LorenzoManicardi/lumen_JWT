@@ -55,9 +55,9 @@ $router->group(
         'prefix' => '/api/v1/posts',
         'middleware' => 'auth',
     ], function( $router ) {
-    $router->post( '/create', 'PostsController@store' );
-    $router->put( '/edit/{id}', 'PostsController@update' );
-    $router->delete( '/{id}', 'PostsController@destroy' );
+    $router->post( '/', 'PostController@store' );
+    $router->put( '/{id}', 'PostController@update' );
+    $router->delete( '/{id}', 'PostController@destroy' );
 });
 
   $router->group(
