@@ -30,7 +30,7 @@ $router->group(['prefix' => '/api/v1'], function( $router ) {
 
 $router->group(['prefix' => '/api/v1/posts'], function( $router ) {
     $router->get( '/', 'PostController@index' );
-    $router->get( '/show/{id}', 'PostController@show' );
+    $router->get( '/{id}', 'PostController@show' );
 });
 
 /*

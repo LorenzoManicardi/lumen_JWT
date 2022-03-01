@@ -15,4 +15,11 @@ class PostController extends Controller
         }
         return $posts;
     }
+
+    public function show($id)
+    {
+        $post = Post::all()->where('id', $id)->first();
+        $post->user = $post->user;
+        return $post;
+    }
 }
