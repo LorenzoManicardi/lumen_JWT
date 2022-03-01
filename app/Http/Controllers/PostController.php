@@ -12,6 +12,7 @@ class PostController extends Controller
         $posts = Post::all();
         foreach ($posts as $post) {
             $post->user = $post->user;
+            $post->comments = $post->comments;
         }
         return $posts;
     }
@@ -20,6 +21,7 @@ class PostController extends Controller
     {
         $post = Post::all()->where('id', $id)->first();
         $post->user = $post->user;
+        $post->comments = $post->comments;
         return $post;
     }
 }

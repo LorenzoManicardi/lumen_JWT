@@ -51,23 +51,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
-    
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
-    
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-    
-    public function postLikes()
-    {
-        return $this->hasMany(PostLikes::class);
     }
 }
