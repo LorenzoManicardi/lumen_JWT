@@ -25,22 +25,36 @@ class CommentController extends Controller
     }
     public function update(Request $request, $post_id, $id)
     {
-        $this->validate($request, [
-            "content" => 'string|required'
-        ]);
-        try {
-            $n = auth()->user()->comments->where('post_id', $post_id)->where('id', $id)->first();
-            $n->content = $request->content;
-            $n->save();
-            return ["status" => "success", "message" => "comment updated successfully!"];
-        } catch(\Error $e) {
-            return ["status" => "error", "message" => $e];
+        if (auth()->user()->subscription == 'premium') {
+            $this->validate($request, [
+                "content" => 'string|required'
+            ]);
+            try {
+                $n = auth()->user()->comments->where('post_id', $post_id)->where('id', $id)->first();
+                $n->content = $request->content;
+                $n->save();
+                return ["status" => "success", "message" => "comment updated successfully!"];
+            } catch(\Error $e) {
+                return ["status" => "error", "message" => $e];
+            }
+        } else {
+            return ["status" => "error", "message" => "you must be a premium user for this feature!"];
+        }
+
+    }
+
+    public function destroy($post_id, $id)
+    {
+        if (auth()->user()->subscription == 'premium') {
+            try {
+                $n = auth()->user()->comments->where('post_id', $post_id)->where('id', $id)->first();
+                $n->delete();
+                return ["status" => "success", "message" => "comment deleted successfully!"];
+            } catch(\Error $e) {
+                return ["status" => "error", "message" => $e];
+            }
+        } else {
+            return ["status" => "error", "message" => "you must be a premium user for this feature!"];
         }
     }
-
-    public function destroy($post_id)
-    {
-        return ["status" => "success", "message" => "comment updated successfully!"];
-    }
-
 }
