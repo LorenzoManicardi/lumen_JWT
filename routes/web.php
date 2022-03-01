@@ -65,7 +65,7 @@ $router->group(
         'middleware' => 'auth',
     ], function( $router ) {
     $router->post( '/{post_id}/comments', 'CommentController@store' );
-    $router->put( '/{post_id}/comments/id', 'CommentController@update' );
+    $router->put( '/{post_id}/comments/{id}', 'CommentController@update' );
     $router->delete( '/comments/{post_id}', 'CommentController@destroy' );
 });
 
